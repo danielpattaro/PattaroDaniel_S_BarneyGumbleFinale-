@@ -16,7 +16,8 @@ var cnt=0
 var cntPrecedente=0
 var colpito = 0
 let defaults = UserDefaults.standard
-
+var iss=false
+var molt=1
 class ViewControllerGioco: UIViewController {
     @IBOutlet weak var ciambella: UIButton!
     
@@ -33,6 +34,7 @@ class ViewControllerGioco: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        controllo()
         img.tag = 100
         view.bringSubviewToFront(spaziogen)
         vite=5
@@ -41,13 +43,9 @@ class ViewControllerGioco: UIViewController {
         img.isHidden=false
         img.isHidden=false
         colpito=0
+//
+//        }
         
-        guard let punt=defaults.object(forKey: "Record")  else {
-            cntPrecedente=0
-            return
-        }
-        if cntPrecedente>0
-        {cntPrecedente=punt as! Int}
         
         appareDuff()
     }
@@ -61,7 +59,25 @@ class ViewControllerGioco: UIViewController {
     {
         self.dm.isHidden=true
     }
-
+    func controllo()
+    {
+        if (m1==0 || m1==0)
+        {
+            iss=true
+        }
+        if (m2==0 || m2==0)
+        {
+            iss=true
+        }
+        if (m3==0 || m3==0)
+        {
+            iss=true
+        }
+        if (m4==0 || m4==0)
+        {
+            iss=true
+        }
+    }
     func levavita()
     {
         img.removeFromSuperview()
@@ -100,6 +116,76 @@ class ViewControllerGioco: UIViewController {
     
     func appareDuff ()
     {
+        if(m1==1)
+        {
+            var image = UIImage(imageLiteralResourceName: "duffice")
+            img.image = image
+            UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+            // img=imgice
+            
+            img.tag=100
+            if cnt>9
+            {
+                var image = UIImage(imageLiteralResourceName: "duff")
+                img.image = image
+                UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+                //img=imgstand
+                iss=true
+                img.tag=100
+                m1=2
+                 defaults.set(2, forKey: "Spunta1")
+            }
+            else
+            { diff=0}
+        }
+        else if(m2==1)
+        {
+            var image = UIImage(imageLiteralResourceName: "duffice")
+            img.image = image
+            UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+            // img=imgice
+            diff=0
+            img.tag=100
+            if cnt>19
+            {
+                var image = UIImage(imageLiteralResourceName: "duff")
+                img.image = image
+                UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+                //img=imgstand
+                iss=true
+                img.tag=100
+                m2=2
+                 defaults.set(2, forKey: "Spunta2")
+            }
+            else
+            { diff=0}
+        }
+        else if(m3==1)
+        {
+            var image = UIImage(imageLiteralResourceName: "duffice")
+            img.image = image
+            UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+            // img=imgice
+            diff=0
+            img.tag=100
+            if cnt>29
+            {
+                var image = UIImage(imageLiteralResourceName: "duff")
+                img.image = image
+                UIView.transition(with: img, duration: 0.6, options: .transitionCrossDissolve, animations: nil, completion: nil)
+                //img=imgstand
+                iss=true
+                img.tag=100
+                m3=2
+                 defaults.set(2, forKey: "Spunta3")
+            }
+            else
+            { diff=0}
+        }
+        else if(m4==1)
+        {
+            molt=2
+        }
         let lmax = Int(spaziogen.frame.width)
         let amax = Int(spaziogen.frame.height)
         var assex = Int.random(in: 0...lmax - 80)
@@ -137,12 +223,12 @@ class ViewControllerGioco: UIViewController {
             {
                 colpito = 1
                 img.removeFromSuperview()
-                cnt=cnt+1
+                cnt=cnt+(1*molt)
                 counter.text=String(cnt)
                 if (cnt%10==0)
                 {
                     dm.isHidden=false
-                    if (diff<4)
+                    if (diff<4 && iss==false)
                     {diff=diff+0.5}
                     
                 }
